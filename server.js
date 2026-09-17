@@ -70,8 +70,32 @@ function getSafeErrorMessage(error) {
 
 const app = express();
 app.use(express.json({ limit: '20kb' }));
+app.set('trust proxy', 1);
 
-app.post('/api/assist', async (req, res) => {
+const DAILY_LIMIT = 3;
+const DAY_MS = 24 * 60 * 60 * 1000;
+const requestsByIp = new Map();
+
+function dailyAiLimit(req, res, next) {
+  const ip = req.ip || 'unknown';
+  const now = Date.now();
+  const current = requestsByIp.get(ip);
+
+  if (!current || now - current.startedAt >= DAY_MS) {
+    requestsByIp.set(ip, { count: 1, startedAt: now });
+    return next();
+  }
+
+  if (current.count >= DAILY_LIMIT) {
+    return res.status(429).json({
+      error: 'Дневной лимит исчерпан: доступно 3 AI-запроса за 24 часа.',
+    });
+  }
+
+  current.count += 1;
+  return next();
+}
+app.post('/api/assist', dailyAiLimit, async (req, res) => {
   try {
     const apiKey = process.env.OPENAI_API_KEY?.trim();
     if (!apiKey) {
