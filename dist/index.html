@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Нейропомощник</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="/assets/index-OoXZ4ioa.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DbjCFlhR.css">
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <p class="eyebrow">Методолог · помощник по задачам</p>
+        <h1>Нейропомощник</h1>
+        <p class="subtitle">Превращает задачу в понятный и готовый результат</p>
+      </header>
+
+      <main class="card">
+        <form id="assist-form" novalidate>
+          <fieldset class="modes">
+            <legend>Режим работы</legend>
+            <div class="mode-list" role="radiogroup" aria-label="Режим работы">
+              <label class="mode">
+                <input type="radio" name="mode" value="plan" checked />
+                <span>План дня</span>
+              </label>
+              <label class="mode">
+                <input type="radio" name="mode" value="checklist" />
+                <span>Чек-лист</span>
+              </label>
+              <label class="mode">
+                <input type="radio" name="mode" value="template" />
+                <span>Текстовый шаблон</span>
+              </label>
+              <label class="mode">
+                <input type="radio" name="mode" value="ideas" />
+                <span>Идеи</span>
+              </label>
+              <label class="mode">
+                <input type="radio" name="mode" value="free" />
+                <span>Свободный запрос</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <label class="field" for="query">
+            <span class="label">Ваш запрос</span>
+            <textarea
+              id="query"
+              name="query"
+              rows="8"
+              maxlength="4000"
+              required
+              placeholder=""
+            ></textarea>
+            <span id="hint" class="hint"></span>
+          </label>
+
+          <div class="actions">
+            <button type="submit" class="btn btn-primary" id="submit-btn">
+              Отправить
+            </button>
+            <button type="button" class="btn btn-ghost" id="clear-btn">
+              Очистить
+            </button>
+          </div>
+        </form>
+
+        <p id="status" class="status" hidden>Готовлю ответ…</p>
+        <p id="error" class="error" hidden></p>
+
+        <section class="result-block" aria-live="polite">
+          <div class="result-header">
+            <h2>Результат</h2>
+            <button type="button" class="btn btn-secondary" id="copy-btn">
+              Скопировать результат
+            </button>
+          </div>
+          <pre id="result" class="result">Здесь появится готовый ответ.</pre>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
